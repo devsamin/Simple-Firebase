@@ -1,9 +1,11 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
     return (
         <div>
-            <h2>This is a header</h2>
+            <NavLink style={{margin: '20px'}} to={'/'}>Home</NavLink>
+            <NavLink to={'/login'}>Google Sign Up</NavLink>
         </div>
     );
 };
