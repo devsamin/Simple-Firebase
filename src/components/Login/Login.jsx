@@ -1,12 +1,20 @@
-import { GoogleAuthProvider } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import React from 'react';
+import auth from '../../Firebase/Firebase_init';
 
 const Login = () => {
 
-    const provider = GoogleAuthProvider()
+    const provider = new GoogleAuthProvider()
 
     const hendalGooglesignIn = () =>{
-        console.log('Google heool')
+        console.log(auth, provider)
+        signInWithPopup(auth,provider)
+        .then((res)=>{
+            console.log(res)
+        })
+        .catch(error=>{
+            console.log("ERROR" ,error)
+        })
     }
     return (
         <div>
