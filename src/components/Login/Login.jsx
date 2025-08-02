@@ -1,10 +1,11 @@
-import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import React, { useState } from 'react';
 import auth from '../../Firebase/Firebase_init';
 
 const Login = () => {
 
     const provider = new GoogleAuthProvider();
+    const Githubprovider = new GithubAuthProvider();
     const [user, setUser] = useState(null);
 
     const hendalGooglesignIn = () => {
@@ -29,19 +30,33 @@ const Login = () => {
             
         })
     }
+    const hendalGithubsignIn = ()=>{
+        signInWithPopup(auth, Githubprovider)
+        .then((res)=>{
+            console.log(res.user)
+            setUser(res.user)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
 
     return (
         <div>
             {/* <button onClick={hendalGooglesignIn}>Sign in with Google</button>
             <button onClick={hendalSignout}>Sign out</button> */}
             {
-                user ? <button onClick={hendalSignout}>Sign out</button> : <button onClick={hendalGooglesignIn}>Sign in with Google</button>
+                user ? <button onClick={hendalSignout}>Sign out</button> : <>
+                    <button onClick={hendalGooglesignIn}>Sign in with Google</button>
+                    <button onClick={hendalGithubsignIn}>Sign in with GitHub</button>
+                </>
             }
             
                 {
                     user && <div>
                         <h2>{user.displayName}</h2>
                         <h2>{user.email}</h2>
+                        <img src={user.photoURL} alt="" />
                     </div>
                 }
             
